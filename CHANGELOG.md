@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.3.1] - 2026-03-02
+
+### Added
+- New `smalltv-upload-firmware` tool for flashing .bin/.bin.gz firmware files via /update endpoint
+- Requires explicit `confirm=true` parameter — tool refuses to run without user approval
+- Marked with `destructiveHint: true` annotation so clients can show confirmation UI
+
 ## [0.3.0] - 2026-03-02
 
 ### Added

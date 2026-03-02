@@ -15,6 +15,9 @@ request executes immediately.
    filesystem. It handles multipart form data internally. Do **not**
    attempt file uploads through `smalltv-http-request` — its string
    body cannot carry binary data.
+4. Use `smalltv-upload-firmware` only when the user explicitly asks to
+   flash firmware. Requires `confirm=true` — always ask the user first.
+   Bad firmware can brick the device.
 
 ## Safety Defaults
 
@@ -27,6 +30,8 @@ request executes immediately.
   - `/set?clear=image` or `/set?clear=gif` (deletes all uploads)
   - `/delete?file=...` (permanent file deletion)
 - Do not probe write endpoints with speculative requests.
+- **Never flash firmware** without explicit user approval and
+  `confirm=true`.
 
 ## Common Endpoint Patterns
 

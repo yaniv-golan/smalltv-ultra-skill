@@ -1,0 +1,52 @@
+{
+  "name": "smalltv-upload-firmware",
+  "description": "Upload a .bin or .bin.gz firmware file to the SmallTV device via /update. DANGEROUS: flashing bad firmware can brick the device. Always ask the user to confirm before calling. The confirm parameter must be set to true.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "device_ip": {
+        "type": "string",
+        "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+      },
+      "file_path": {
+        "type": "string",
+        "description": "Absolute path to a local .bin or .bin.gz firmware file"
+      },
+      "confirm": {
+        "type": "boolean",
+        "description": "Must be true. Set only after the user has explicitly approved the firmware flash.",
+        "default": false
+      }
+    },
+    "required": ["file_path", "confirm"]
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["success", "result"],
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "result": {
+        "type": "object",
+        "required": [
+          "device_ip",
+          "uploaded_file",
+          "status_code",
+          "body"
+        ],
+        "properties": {
+          "device_ip": { "type": "string" },
+          "uploaded_file": { "type": "string" },
+          "status_code": { "type": "integer" },
+          "body": { "type": "string" }
+        }
+      }
+    }
+  },
+  "timeoutSecs": 120,
+  "annotations": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+  }
+}
