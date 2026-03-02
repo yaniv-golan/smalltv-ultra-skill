@@ -3,6 +3,12 @@
   "title": "SmallTV Local MCP",
   "version": "0.1.0",
   "description": "Local MCP server for GeekMagic SmallTV Ultra device control",
+  "author": {
+    "name": "Yaniv Golan",
+    "email": "yaniv@golan.name",
+    "url": "https://github.com/yaniv-golan"
+  },
+  "repository": "https://github.com/yaniv-golan/smalltv-ultra-skill",
   "user_config": {
     "device_ip": {
       "type": "string",
