@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "geekmagic-smalltv-ultra",
-      "source": ".",
+      "source": "./",
       "description": "Control, customize, and develop firmware for the GeekMagic SmallTV Ultra (ESP8266 + ST7789 240x240 display)"
     }
   ]
