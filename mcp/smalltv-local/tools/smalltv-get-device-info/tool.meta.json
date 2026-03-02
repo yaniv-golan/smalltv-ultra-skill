@@ -6,7 +6,7 @@
     "properties": {
       "device_ip": {
         "type": "string",
-        "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+        "description": "Device IP address (e.g. 192.168.5.253). Always pass this if known."
       }
     }
   },

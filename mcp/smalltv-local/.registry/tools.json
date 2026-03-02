@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "version": 1,
-  "generatedAt": "2026-03-02T16:20:20Z",
+  "generatedAt": "2026-03-02T16:23:50Z",
   "items": [
     {
       "name": "smalltv-get-device-info",
@@ -12,7 +12,7 @@
         "properties": {
           "device_ip": {
             "type": "string",
-            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+            "description": "Device IP address (e.g. 192.168.5.253). Always pass this if known."
           }
         }
       },
@@ -76,7 +76,7 @@
         "properties": {
           "device_ip": {
             "type": "string",
-            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+            "description": "Device IP address (e.g. 192.168.5.253). Always pass this if known."
           },
           "path": {
             "type": "string",
@@ -151,7 +151,7 @@
         "properties": {
           "device_ip": {
             "type": "string",
-            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+            "description": "Device IP address (e.g. 192.168.5.253). Always pass this if known."
           },
           "file_path": {
             "type": "string",
@@ -239,7 +239,7 @@
         "properties": {
           "device_ip": {
             "type": "string",
-            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+            "description": "Device IP address (e.g. 192.168.5.253). Always pass this if known."
           },
           "file_path": {
             "type": "string",
@@ -320,7 +320,7 @@
         "properties": {
           "device_ip": {
             "type": "string",
-            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+            "description": "Device IP address (e.g. 192.168.5.253). Always pass this if known."
           },
           "method": {
             "type": "string",
@@ -410,6 +410,6 @@
       }
     }
   ],
-  "hash": "494d2377f3cdf500430d32fe4a5bdbb91a8e226aca25d3a451f782fbe66b8d97",
+  "hash": "b24369ee3e4ad7a81b7a3ce947396a9b5a30320fb62a8ff792f0e62c6bcc1c35",
   "total": 5
 }

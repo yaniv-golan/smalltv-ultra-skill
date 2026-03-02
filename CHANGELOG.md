@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.3] - 2026-03-02
+
+### Fixed
+- Model no longer wastes a round trip calling tools without `device_ip` — parameter description changed from "Optional device IP. Falls back to SMALLTV_DEVICE_IP." to "Device IP address (e.g. 192.168.5.253). Always pass this if known."
+
 ## [0.4.2] - 2026-03-02
 
 ### Changed
