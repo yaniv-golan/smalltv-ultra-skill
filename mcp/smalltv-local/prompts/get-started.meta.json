@@ -1,0 +1,15 @@
+{
+  "name": "prompt.smalltv-get-started",
+  "description": "Quick-start guide for interacting with a SmallTV Ultra device through this MCP server",
+  "path": "get-started.txt",
+  "arguments": {
+    "type": "object",
+    "required": [],
+    "properties": {
+      "task": {
+        "type": "string",
+        "description": "What you want to do (e.g. check status, change theme, upload image)"
+      }
+    }
+  }
+}

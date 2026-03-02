@@ -1,16 +1,18 @@
+[![Claude Cowork](https://img.shields.io/badge/Claude_Cowork-D97757?logo=claude&logoColor=fff)](https://claude.com/plugins)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-555?logo=claude&logoColor=fff)](https://code.claude.com/docs/en/plugins)
+[![CI](https://github.com/yaniv-golan/smalltv-ultra-skill/actions/workflows/validate-mcpb.yml/badge.svg)](https://github.com/yaniv-golan/smalltv-ultra-skill/actions/workflows/validate-mcpb.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![MCP Bash Framework](https://img.shields.io/badge/MCP-MCP_Bash_Framework-green?logo=modelcontextprotocol)](https://github.com/yaniv-golan/mcp-bash-framework)
 
 # SmallTV Ultra Skill
 
 A [Claude](https://claude.ai) skill for controlling, customizing, and developing firmware for the **GeekMagic SmallTV Ultra** — an ESP8266-based IoT device with a 240x240 TFT display.
 
-<!-- ![SmallTV Ultra device](docs/device-photo.jpg) -->
 
 ## What is the SmallTV Ultra?
 
 The [GeekMagic SmallTV Ultra](https://geekmagic.com/products/geekmagic-ultra-4/) is a tiny WiFi-connected display powered by an ESP8266 with a 1.5" 240x240 IPS screen. Out of the box it shows weather, time, crypto prices, and a photo album — all controlled via an HTTP API with no authentication.
 
-<!-- ![SmallTV Ultra on a desk](docs/device-desk.jpg) -->
 
 ## What This Skill Covers
 
@@ -22,6 +24,21 @@ The [GeekMagic SmallTV Ultra](https://geekmagic.com/products/geekmagic-ultra-4/)
 | **Custom Firmware** | Write your own ESP8266 firmware from scratch with PlatformIO, TFT_eSPI, and OTA flashing |
 
 The skill includes complete device reference documentation, API details, and step-by-step guides for each path.
+
+## Choose Your Setup
+
+Use this quick guide first:
+
+| Setup | Best for | Can reach SmallTV directly? | What to use |
+|---|---|---|---|
+| **Claude Code + skill** | Local terminal workflow | **Yes** | Install skill from marketplace |
+| **Claude Desktop (Chat mode) + skill** | Desktop chat workflow | **No** | Use local proxy + tunnel bridge |
+| **Claude Desktop (Cowork mode) + skill** | Cowork VM workflow | **No** (in this project setup) | Use local proxy + tunnel bridge |
+| **Claude Desktop (Chat or Cowork) + local MCPB** | Desktop with local MCP tools | **Yes** (via local MCP on your machine) | Install prebuilt `.mcpb` |
+
+If you are unsure, pick:
+1. **Claude Code + skill** for easiest direct control
+2. **Desktop + MCPB** for secure local MCP access without exposing the raw device API
 
 ## Installation
 
@@ -44,6 +61,37 @@ claude plugin install geekmagic-smalltv-ultra
 # Or load from a local copy (no install needed)
 claude --plugin-dir /path/to/smalltv-ultra-skill
 ```
+
+## Runtime and Network Reachability
+
+This plugin can be used from Claude Desktop (Chat/Cowork modes) and Claude Code. The key difference is whether that runtime can directly reach your SmallTV private LAN IP (for example `192.168.x.x`).
+
+| Runtime | Where it runs | Can reach private LAN device directly? |
+|---|---|---|
+| **Claude Desktop (Chat mode)** | Anthropic-managed runtime | **No** |
+| **Claude Desktop (Cowork mode)** | Local VM on your machine | **No** (in this project setup) |
+| **Claude Code (CLI)** | In your terminal on your machine | **Yes**, if your machine can reach the device |
+| **Claude cloud code execution** | Anthropic-managed cloud VM | **No** (private LAN is not directly routable) |
+
+If your runtime cannot reach LAN directly, use a bridge (local MCP server or local proxy+tunnel).
+
+## Secure Quick Tunnel
+
+If your runtime cannot reach the device LAN directly, you can run a local token-protected proxy and tunnel it with `cloudflared`. See the [Secure Quick Tunnel guide](docs/secure-tunnel.md) for full setup instructions.
+
+## Local MCP Server Option (mcp-bash)
+
+This repo also includes a local MCP server project at [`mcp/smalltv-local`](mcp/smalltv-local), built with [`mcp-bash`](https://github.com/yaniv-golan/mcp-bash-framework).
+
+Use this when you want Claude or any MCP-capable app/client to call your SmallTV through your local machine without exposing the device directly.
+
+Recommended install path (simplest):
+
+1. Download the latest `.mcpb` from [GitHub Releases](https://github.com/yaniv-golan/smalltv-ultra-skill/releases/latest).
+2. Install the bundle in your MCPB-compatible client.
+3. Provide device IP in the install/user-config prompt.
+
+See [`mcp/smalltv-local/README.md`](mcp/smalltv-local/README.md) for details, fallback behavior, and developer-only setup.
 
 ## Device Setup
 
@@ -77,6 +125,10 @@ If the device loses WiFi connectivity:
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting issues, submitting PRs, and testing locally.
+
+## Versioning
+
+See [VERSIONING.md](VERSIONING.md) for SemVer rules, tag naming (`skill-v*` and `mcp-v*`), and MCP release workflow behavior.
 
 ## Disclaimer
 

@@ -1,0 +1,45 @@
+{
+  "name": "smalltv-get-device-info",
+  "description": "Verify device connectivity and identity. Call this FIRST in every session before using smalltv-http-request. Returns model name and firmware version from /v.json. Read-only and safe.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "device_ip": {
+        "type": "string",
+        "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": [
+      "success",
+      "result"
+    ],
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "result": {
+        "type": "object",
+        "required": [
+          "device_ip",
+          "endpoint",
+          "body"
+        ],
+        "properties": {
+          "device_ip": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "body": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "timeoutSecs": 8
+}

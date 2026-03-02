@@ -1,0 +1,25 @@
+{
+  "format_version": 1,
+  "version": 1,
+  "generatedAt": "2026-03-02T14:25:02Z",
+  "items": [
+    {
+      "name": "smalltv-api-reference",
+      "description": "Full SmallTV Ultra HTTP API reference — endpoints, parameters, JSON data formats, file management, theme control, and web console pages",
+      "path": "api-reference.md",
+      "uri": "file://./resources/api-reference.md",
+      "mimeType": "text/markdown",
+      "provider": "file"
+    },
+    {
+      "name": "smalltv-safety-guide",
+      "description": "SmallTV Ultra safety rules, destructive endpoint warnings, device constraints, and WiFi recovery procedures",
+      "path": "safety-guide.md",
+      "uri": "file://./resources/safety-guide.md",
+      "mimeType": "text/markdown",
+      "provider": "file"
+    }
+  ],
+  "hash": "883fd2e682961711c357c018c29418083aacd8c135d014e3a6d66d5a64ce2565",
+  "total": 2
+}

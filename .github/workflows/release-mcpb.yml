@@ -1,0 +1,67 @@
+name: Release MCPB Bundle
+
+on:
+  push:
+    tags:
+      - mcp-v*
+  workflow_dispatch:
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Install mcp-bash
+        run: |
+          curl -fsSL "https://raw.githubusercontent.com/yaniv-golan/mcp-bash-framework/v1.1.2/install.sh" \
+            | bash -s -- --yes --version "v1.1.2"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Verify generated MCP docs are fresh
+        run: python3 scripts/sync_skill_docs_to_mcp.py --check
+
+      - name: Build MCPB and checksums
+        working-directory: mcp/smalltv-local
+        run: |
+          mcp-bash bundle
+          sha256sum *.mcpb > SHA256SUMS
+
+      - name: Validate tag/version match
+        if: github.event_name == 'push'
+        run: |
+          tag_version="${GITHUB_REF_NAME#mcp-v}"
+          file_version="$(jq -r '.version' mcp/smalltv-local/server.d/server.meta.json)"
+          if [ "$tag_version" != "$file_version" ]; then
+            echo "Tag version ($tag_version) does not match server.meta.json version ($file_version)"
+            exit 1
+          fi
+
+      - name: Upload release assets
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            mcp/smalltv-local/*.mcpb
+            mcp/smalltv-local/SHA256SUMS
+
+      - name: Upload workflow artifacts
+        if: github.event_name != 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: smalltv-local-release-assets
+          path: |
+            mcp/smalltv-local/*.mcpb
+            mcp/smalltv-local/SHA256SUMS

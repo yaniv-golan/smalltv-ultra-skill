@@ -1,0 +1,79 @@
+{
+  "name": "smalltv-http-request",
+  "description": "Send an HTTP request to any SmallTV endpoint. Use after verifying the device with smalltv-get-device-info. Supports GET/POST for settings, file uploads, and status queries. WARNING: some endpoints are destructive (reset, reboot, clear, wifisave) — never call them without explicit user intent.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "device_ip": {
+        "type": "string",
+        "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+      },
+      "method": {
+        "type": "string",
+        "description": "HTTP method",
+        "enum": [
+          "GET",
+          "POST",
+          "PUT",
+          "PATCH",
+          "DELETE",
+          "HEAD",
+          "OPTIONS"
+        ],
+        "default": "GET"
+      },
+      "path": {
+        "type": "string",
+        "description": "Endpoint path such as /set?theme=3"
+      },
+      "body": {
+        "type": "string",
+        "description": "Optional raw request body"
+      },
+      "content_type": {
+        "type": "string",
+        "description": "Content-Type header to send when body is present",
+        "default": "application/json"
+      }
+    },
+    "required": [
+      "path"
+    ]
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": [
+      "success",
+      "result"
+    ],
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "result": {
+        "type": "object",
+        "required": [
+          "device_ip",
+          "request",
+          "status_code",
+          "body"
+        ],
+        "properties": {
+          "device_ip": {
+            "type": "string"
+          },
+          "request": {
+            "type": "object"
+          },
+          "status_code": {
+            "type": "integer"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "timeoutSecs": 12
+}

@@ -1,0 +1,48 @@
+name: Validate MCPB Bundle
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-mcpb:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Install mcp-bash
+        run: |
+          curl -fsSL "https://raw.githubusercontent.com/yaniv-golan/mcp-bash-framework/v1.1.2/install.sh" \
+            | bash -s -- --yes --version "v1.1.2"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Verify generated MCP docs are fresh
+        run: python3 scripts/sync_skill_docs_to_mcp.py --check
+
+      - name: Validate bundle structure
+        working-directory: mcp/smalltv-local
+        run: mcp-bash bundle --validate
+
+      - name: Build bundle
+        working-directory: mcp/smalltv-local
+        run: mcp-bash bundle
+
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: smalltv-local-mcpb
+          path: mcp/smalltv-local/*.mcpb

@@ -1,6 +1,10 @@
 # Plugin user settings (device IP, preferences)
 .claude/*.local.md
 
+# Environment files
+.env
+.env.*
+
 # macOS
 .DS_Store
 

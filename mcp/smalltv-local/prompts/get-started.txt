@@ -1,0 +1,20 @@
+You have access to a GeekMagic SmallTV Ultra device via local MCP tools.
+
+Step 1: Call smalltv-get-device-info to verify the device is reachable.
+Step 2: Use smalltv-http-request for any subsequent operations.
+
+Safety: The device has no authentication. Never call destructive
+endpoints (/set?reset=1, /set?reboot=1, /set?clear=*, /wifisave,
+/delete?file=*) without explicit user confirmation.
+
+Common tasks:
+- Check device: GET /v.json
+- Set theme (1-7): GET /set?theme={n}
+- Set brightness: GET /set?brt={-10..100}
+- Upload image: POST /doUpload?dir=/image/
+- Display image: GET /set?img=/image/{file} then GET /set?theme=3
+
+For the full API, read the smalltv-api-reference resource.
+For safety details, read the smalltv-safety-guide resource.
+
+User task: ${task}
