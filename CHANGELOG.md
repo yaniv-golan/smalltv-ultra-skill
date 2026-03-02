@@ -4,22 +4,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [skill-0.2.0] - 2026-03-02
+
+### Added
+- **smalltv-mcp-tools**: New skill providing tool selection logic, workflows, and safety rules for MCP-based device control (complements the existing geekmagic-smalltv-ultra skill which covers raw HTTP)
+
+### Changed
+- Removed `version` field from SKILL.md frontmatter — skills are now versioned through the plugin version only (see VERSIONING.md)
+- Updated VERSIONING.md with skill versioning policy
+
 ## [skill-0.1.1] - 2026-03-02
 
 ### Fixed
 - Marketplace `source` path pointed to `./.claude-plugin` instead of `.` — Claude could not resolve `plugin.json`, so no skills were visible after installation
 
-## [0.4.5] - 2026-03-02
+## [mcp-0.4.5] - 2026-03-02
 
 ### Changed
 - Unified env var to `SMALLTV_IP` everywhere — user_config key, env_map, tool scripts, and docs all use the same name. Reverted unnecessary `setup.sh` changes from 0.4.4.
 
-## [0.4.3] - 2026-03-02
+## [mcp-0.4.3] - 2026-03-02
 
 ### Fixed
 - Model no longer wastes a round trip calling tools without `device_ip` — parameter description changed from "Optional device IP. Falls back to SMALLTV_DEVICE_IP." to "Device IP address (e.g. 192.168.5.253). Always pass this if known."
 
-## [0.4.2] - 2026-03-02
+## [mcp-0.4.2] - 2026-03-02
 
 ### Changed
 - Server instructions rewritten to be self-contained — the model no longer depends on reading MCP resources (which are user-selectable, not model-initiated) for critical API knowledge
@@ -28,7 +37,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Added "Do not probe unknown parameters" guidance to prevent speculative endpoint guessing
 - Resources section reframed as "user-selectable" supplementary context
 
-## [0.4.1] - 2026-03-02
+## [mcp-0.4.1] - 2026-03-02
 
 ### Fixed
 - Device-unreachable errors now return structured `upstream_unreachable` error instead of generic "Tool output does not satisfy outputSchema" — `outputSchema` in all tools updated to accept both success and error shapes
@@ -38,7 +47,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 - Timeout buffer per tool: get-device-info 10s, read 12s, write 15s, upload-file 45s, upload-firmware 150s
 
-## [0.4.0] - 2026-03-02
+## [mcp-0.4.0] - 2026-03-02
 
 ### Changed
 - **Breaking**: Replaced `smalltv-http-request` with two granular tools:
@@ -49,14 +58,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Removed
 - `smalltv-http-request` tool (replaced by `smalltv-read` and `smalltv-write`)
 
-## [0.3.1] - 2026-03-02
+## [mcp-0.3.1] - 2026-03-02
 
 ### Added
 - New `smalltv-upload-firmware` tool for flashing .bin/.bin.gz firmware files via /update endpoint
 - Requires explicit `confirm=true` parameter — tool refuses to run without user approval
 - Marked with `destructiveHint: true` annotation so clients can show confirmation UI
 
-## [0.3.0] - 2026-03-02
+## [mcp-0.3.0] - 2026-03-02
 
 ### Added
 - New `smalltv-upload-file` tool for uploading JPG/GIF images via multipart form data (fixes inability to upload binary files through the string-based `smalltv-http-request` body)
@@ -65,7 +74,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 - Server instructions updated to direct uploads to `smalltv-upload-file` and warn against using `smalltv-http-request` for binary data
 
-## [0.2.0] - 2026-03-02
+## [mcp-0.2.0] - 2026-03-02
 
 ### Added
 - Resource annotations (`priority: 1.0`, `audience: ["assistant"]`) on API reference and safety guide resources to signal clients to auto-include them in context
@@ -74,7 +83,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 - Upgraded mcp-bash framework from 1.1.2 to 1.1.3 (adds resource annotation support)
 
-## [0.1.0] - 2026-03-02
+## [skill-0.1.0 / mcp-0.1.0] - 2026-03-02
 
 ### Added
 - Skill with four workflow paths: device control, custom content, alternative firmware, custom firmware

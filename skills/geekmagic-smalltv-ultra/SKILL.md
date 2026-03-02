@@ -1,6 +1,5 @@
 ---
 name: geekmagic-smalltv-ultra
-version: 1.0.0
 description: This skill should be used when the user asks to "control the SmallTV", "change SmallTV theme", "upload image to SmallTV", "set SmallTV brightness", "configure SmallTV weather", "install alternative firmware", "flash ESPHome on SmallTV", "install bvweerd firmware", "write custom firmware for ESP8266 display", "build firmware for SmallTV", "update SmallTV firmware", "push image to display", "send text to SmallTV", "connect SmallTV to Home Assistant", "SmallTV WiFi recovery", or mentions the GeekMagic SmallTV Ultra, SmallTV-Ultra, TinyTV, HACS SmallTV integration, or an ESP8266-based 240x240 TFT display device. Covers stock firmware HTTP API usage, alternative firmware installation (bvweerd, ESPHome, Tasmota), and custom ESP8266 firmware development.
 ---
 

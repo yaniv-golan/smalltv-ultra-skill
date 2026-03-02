@@ -1,6 +1,9 @@
 # Plugin user settings (device IP, preferences)
 .claude/*.local.md
 
+# Local project memory (not part of the plugin)
+CLAUDE.md
+
 # Environment files
 .env
 .env.*
