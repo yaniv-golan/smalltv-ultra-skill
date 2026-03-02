@@ -42,8 +42,8 @@ Settings use `GET /set?param=value` and return `"OK"` on success.
 ## Reference Resources
 
 This server exposes MCP resources with additional documentation:
-- `smalltv://docs/api-reference` — full HTTP API and endpoint catalog
-- `smalltv://docs/safety-guide` — destructive endpoints and constraints
+- `file://./resources/api-reference.md` — full HTTP API and endpoint catalog
+- `file://./resources/safety-guide.md` — destructive endpoints and constraints
 
 Consult these resources when you need endpoint details beyond the
 common patterns listed above.
