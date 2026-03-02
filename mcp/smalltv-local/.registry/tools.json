@@ -1,11 +1,11 @@
 {
   "format_version": 1,
   "version": 1,
-  "generatedAt": "2026-03-02T14:25:02Z",
+  "generatedAt": "2026-03-02T16:02:53Z",
   "items": [
     {
       "name": "smalltv-get-device-info",
-      "description": "Verify device connectivity and identity. Call this FIRST in every session before using smalltv-http-request. Returns model name and firmware version from /v.json. Read-only and safe.",
+      "description": "Verify device connectivity and identity. Call this FIRST in every session before using any other tool. Returns model name and firmware version from /v.json. Read-only and safe.",
       "path": "smalltv-get-device-info/tool.sh",
       "inputSchema": {
         "type": "object",
@@ -16,12 +16,11 @@
           }
         }
       },
-      "timeoutSecs": 8,
+      "timeoutSecs": 10,
       "outputSchema": {
         "type": "object",
         "required": [
-          "success",
-          "result"
+          "success"
         ],
         "properties": {
           "success": {
@@ -45,14 +44,277 @@
                 "type": "object"
               }
             }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "type",
+              "message"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
           }
         }
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
-      "name": "smalltv-http-request",
-      "description": "Send an HTTP request to any SmallTV endpoint. Use after verifying the device with smalltv-get-device-info. Supports GET/POST for settings, file uploads, and status queries. WARNING: some endpoints are destructive (reset, reboot, clear, wifisave) — never call them without explicit user intent.",
-      "path": "smalltv-http-request/tool.sh",
+      "name": "smalltv-read",
+      "description": "Read status, config, and file listings from the SmallTV device. GET only. Use for /v.json, /space.json, /city.json, /album.json, /filelist?dir=..., /wifi.json?q=1, /config.json, and static pages. Write endpoints (/set, /wifisave, /delete) are blocked — use smalltv-write for those.",
+      "path": "smalltv-read/tool.sh",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "device_ip": {
+            "type": "string",
+            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+          },
+          "path": {
+            "type": "string",
+            "description": "Endpoint path such as /space.json or /filelist?dir=/image/"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "timeoutSecs": 12,
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "device_ip",
+              "request",
+              "status_code",
+              "body"
+            ],
+            "properties": {
+              "device_ip": {
+                "type": "string"
+              },
+              "request": {
+                "type": "object"
+              },
+              "status_code": {
+                "type": "integer"
+              },
+              "body": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "type",
+              "message"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    },
+    {
+      "name": "smalltv-upload-file",
+      "description": "Upload a JPG or GIF image from the local filesystem to the SmallTV device. Use dir '/image/' for album photos (max 240x240px) or '/gif' for weather screen GIFs (80x80px). Firmware uploads are not supported.",
+      "path": "smalltv-upload-file/tool.sh",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "device_ip": {
+            "type": "string",
+            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+          },
+          "file_path": {
+            "type": "string",
+            "description": "Absolute path to a local .jpg, .jpeg, or .gif file"
+          },
+          "dir": {
+            "type": "string",
+            "description": "Target directory on the device",
+            "enum": [
+              "/image/",
+              "/gif"
+            ]
+          }
+        },
+        "required": [
+          "file_path",
+          "dir"
+        ]
+      },
+      "timeoutSecs": 45,
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "device_ip",
+              "uploaded_file",
+              "target_dir",
+              "status_code",
+              "body"
+            ],
+            "properties": {
+              "device_ip": {
+                "type": "string"
+              },
+              "uploaded_file": {
+                "type": "string"
+              },
+              "target_dir": {
+                "type": "string"
+              },
+              "status_code": {
+                "type": "integer"
+              },
+              "body": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "type",
+              "message"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": true
+      }
+    },
+    {
+      "name": "smalltv-upload-firmware",
+      "description": "Upload a .bin or .bin.gz firmware file to the SmallTV device via /update. DANGEROUS: flashing bad firmware can brick the device. Always ask the user to confirm before calling. The confirm parameter must be set to true.",
+      "path": "smalltv-upload-firmware/tool.sh",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "device_ip": {
+            "type": "string",
+            "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+          },
+          "file_path": {
+            "type": "string",
+            "description": "Absolute path to a local .bin or .bin.gz firmware file"
+          },
+          "confirm": {
+            "type": "boolean",
+            "description": "Must be true. Set only after the user has explicitly approved the firmware flash.",
+            "default": false
+          }
+        },
+        "required": [
+          "file_path",
+          "confirm"
+        ]
+      },
+      "timeoutSecs": 150,
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "device_ip",
+              "uploaded_file",
+              "status_code",
+              "body"
+            ],
+            "properties": {
+              "device_ip": {
+                "type": "string"
+              },
+              "uploaded_file": {
+                "type": "string"
+              },
+              "status_code": {
+                "type": "integer"
+              },
+              "body": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "type",
+              "message"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true
+      }
+    },
+    {
+      "name": "smalltv-write",
+      "description": "Change settings, display content, or run system commands on the SmallTV device. Supports all HTTP methods. Common patterns: /set?theme={n}, /set?brt={val}, /set?cd1={city}&cd2=1000. WARNING: some endpoints are destructive (reset, reboot, clear, wifisave, delete) — never call them without explicit user intent.",
+      "path": "smalltv-write/tool.sh",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -92,12 +354,11 @@
           "path"
         ]
       },
-      "timeoutSecs": 12,
+      "timeoutSecs": 15,
       "outputSchema": {
         "type": "object",
         "required": [
-          "success",
-          "result"
+          "success"
         ],
         "properties": {
           "success": {
@@ -125,11 +386,30 @@
                 "type": "string"
               }
             }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "type",
+              "message"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
           }
         }
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": true
       }
     }
   ],
-  "hash": "0f65de948b7101c9a3767eb00212094f63b5f4368d5261ca0b5d2e7a39b1518c",
-  "total": 2
+  "hash": "494d2377f3cdf500430d32fe4a5bdbb91a8e226aca25d3a451f782fbe66b8d97",
+  "total": 5
 }

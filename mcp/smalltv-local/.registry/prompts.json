@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "version": 1,
-  "generatedAt": "2026-03-02T14:25:03Z",
+  "generatedAt": "2026-03-02T16:02:54Z",
   "items": [
     {
       "name": "prompt.smalltv-get-started",
@@ -21,6 +21,6 @@
       "metadata": null
     }
   ],
-  "hash": "9203fd1c64f7bef2b7c03686ffc0a758fc40fea34e5a5145d6d3e7f2adc9502c",
+  "hash": "f8f51c6e4cbd11d7e1ee2eef4cb76ff2b6db509d7a149216fc9f493e8f769033",
   "total": 1
 }

@@ -1,6 +1,6 @@
 {
   "name": "smalltv-get-device-info",
-  "description": "Verify device connectivity and identity. Call this FIRST in every session before using smalltv-http-request. Returns model name and firmware version from /v.json. Read-only and safe.",
+  "description": "Verify device connectivity and identity. Call this FIRST in every session before using any other tool. Returns model name and firmware version from /v.json. Read-only and safe.",
   "inputSchema": {
     "type": "object",
     "properties": {
@@ -12,36 +12,31 @@
   },
   "outputSchema": {
     "type": "object",
-    "required": [
-      "success",
-      "result"
-    ],
+    "required": ["success"],
     "properties": {
       "success": {
         "type": "boolean"
       },
       "result": {
         "type": "object",
-        "required": [
-          "device_ip",
-          "endpoint",
-          "body"
-        ],
+        "required": ["device_ip", "endpoint", "body"],
         "properties": {
-          "device_ip": {
-            "type": "string"
-          },
-          "endpoint": {
-            "type": "string"
-          },
-          "body": {
-            "type": "object"
-          }
+          "device_ip": { "type": "string" },
+          "endpoint": { "type": "string" },
+          "body": { "type": "object" }
+        }
+      },
+      "error": {
+        "type": "object",
+        "required": ["type", "message"],
+        "properties": {
+          "type": { "type": "string" },
+          "message": { "type": "string" }
         }
       }
     }
   },
-  "timeoutSecs": 8,
+  "timeoutSecs": 10,
   "annotations": {
     "readOnlyHint": true,
     "destructiveHint": false

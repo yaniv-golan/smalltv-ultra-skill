@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.1] - 2026-03-02
+
+### Fixed
+- Device-unreachable errors now return structured `upstream_unreachable` error instead of generic "Tool output does not satisfy outputSchema" — `outputSchema` in all tools updated to accept both success and error shapes
+- Tool timeout race conditions: `timeoutSecs` now exceeds curl `--max-time` in all tools so our error handler runs before mcp-bash kills the process
+- Stale `smalltv-http-request` references in `get-started` prompt and `smalltv-get-device-info` description
+
+### Changed
+- Timeout buffer per tool: get-device-info 10s, read 12s, write 15s, upload-file 45s, upload-firmware 150s
+
 ## [0.4.0] - 2026-03-02
 
 ### Changed

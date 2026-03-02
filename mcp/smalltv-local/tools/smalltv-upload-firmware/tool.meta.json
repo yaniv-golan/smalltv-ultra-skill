@@ -22,29 +22,32 @@
   },
   "outputSchema": {
     "type": "object",
-    "required": ["success", "result"],
+    "required": ["success"],
     "properties": {
       "success": {
         "type": "boolean"
       },
       "result": {
         "type": "object",
-        "required": [
-          "device_ip",
-          "uploaded_file",
-          "status_code",
-          "body"
-        ],
+        "required": ["device_ip", "uploaded_file", "status_code", "body"],
         "properties": {
           "device_ip": { "type": "string" },
           "uploaded_file": { "type": "string" },
           "status_code": { "type": "integer" },
           "body": { "type": "string" }
         }
+      },
+      "error": {
+        "type": "object",
+        "required": ["type", "message"],
+        "properties": {
+          "type": { "type": "string" },
+          "message": { "type": "string" }
+        }
       }
     }
   },
-  "timeoutSecs": 120,
+  "timeoutSecs": 150,
   "annotations": {
     "readOnlyHint": false,
     "destructiveHint": true

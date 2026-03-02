@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "version": 1,
-  "generatedAt": "2026-03-02T14:25:02Z",
+  "generatedAt": "2026-03-02T16:02:53Z",
   "items": [
     {
       "name": "smalltv-api-reference",
@@ -9,7 +9,13 @@
       "path": "api-reference.md",
       "uri": "file://./resources/api-reference.md",
       "mimeType": "text/markdown",
-      "provider": "file"
+      "provider": "file",
+      "annotations": {
+        "priority": 1.0,
+        "audience": [
+          "assistant"
+        ]
+      }
     },
     {
       "name": "smalltv-safety-guide",
@@ -17,9 +23,15 @@
       "path": "safety-guide.md",
       "uri": "file://./resources/safety-guide.md",
       "mimeType": "text/markdown",
-      "provider": "file"
+      "provider": "file",
+      "annotations": {
+        "priority": 1.0,
+        "audience": [
+          "assistant"
+        ]
+      }
     }
   ],
-  "hash": "883fd2e682961711c357c018c29418083aacd8c135d014e3a6d66d5a64ce2565",
+  "hash": "d4f329db367e626cc1730958aac588e24bd90dd1f7ca6caca56b7f3961167e51",
   "total": 2
 }

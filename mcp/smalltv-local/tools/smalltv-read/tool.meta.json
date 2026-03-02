@@ -17,7 +17,7 @@
   },
   "outputSchema": {
     "type": "object",
-    "required": ["success", "result"],
+    "required": ["success"],
     "properties": {
       "success": {
         "type": "boolean"
@@ -31,10 +31,18 @@
           "status_code": { "type": "integer" },
           "body": { "type": "string" }
         }
+      },
+      "error": {
+        "type": "object",
+        "required": ["type", "message"],
+        "properties": {
+          "type": { "type": "string" },
+          "message": { "type": "string" }
+        }
       }
     }
   },
-  "timeoutSecs": 8,
+  "timeoutSecs": 12,
   "annotations": {
     "readOnlyHint": true,
     "destructiveHint": false

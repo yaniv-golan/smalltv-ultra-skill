@@ -40,29 +40,32 @@
   },
   "outputSchema": {
     "type": "object",
-    "required": ["success", "result"],
+    "required": ["success"],
     "properties": {
       "success": {
         "type": "boolean"
       },
       "result": {
         "type": "object",
-        "required": [
-          "device_ip",
-          "request",
-          "status_code",
-          "body"
-        ],
+        "required": ["device_ip", "request", "status_code", "body"],
         "properties": {
           "device_ip": { "type": "string" },
           "request": { "type": "object" },
           "status_code": { "type": "integer" },
           "body": { "type": "string" }
         }
+      },
+      "error": {
+        "type": "object",
+        "required": ["type", "message"],
+        "properties": {
+          "type": { "type": "string" },
+          "message": { "type": "string" }
+        }
       }
     }
   },
-  "timeoutSecs": 12,
+  "timeoutSecs": 15,
   "annotations": {
     "readOnlyHint": false,
     "openWorldHint": true
