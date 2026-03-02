@@ -8,7 +8,7 @@ A [Claude](https://claude.ai) skill for controlling, customizing, and developing
 
 ## What is the SmallTV Ultra?
 
-The [GeekMagic SmallTV Ultra](https://github.com/GeekMagicClock/smalltv-ultra) is a tiny WiFi-connected display powered by an ESP8266 with a 1.5" 240x240 IPS screen. Out of the box it shows weather, time, crypto prices, and a photo album — all controlled via an HTTP API with no authentication.
+The [GeekMagic SmallTV Ultra](https://geekmagic.com/products/geekmagic-ultra-4/) is a tiny WiFi-connected display powered by an ESP8266 with a 1.5" 240x240 IPS screen. Out of the box it shows weather, time, crypto prices, and a photo album — all controlled via an HTTP API with no authentication.
 
 <!-- ![SmallTV Ultra on a desk](docs/device-desk.jpg) -->
 
@@ -25,22 +25,23 @@ The skill includes complete device reference documentation, API details, and ste
 
 ## Installation
 
-### Claude Desktop / Cowork (recommended)
+### Claude Desktop (recommended)
 
-1. Open **Claude Desktop** or **Cowork**
-2. Go to **Settings** > **Plugins** > **Browse**
-3. Search for **"SmallTV Ultra"**
-4. Click **Install**
+1. Open **Claude Desktop**
+2. Go to **Customize** > **Browse plugins** > **Personal**
+3. Click the **+** button, then **"Add marketplace from GitHub"**
+4. Enter `yaniv-golan/smalltv-ultra-skill`
 
-Or upload the plugin directory manually via **Settings** > **Plugins** > **Upload**.
+Alternatively, click **+** > **"Upload plugin"** to install from a local copy.
 
 ### Claude Code (CLI)
 
 ```bash
-# Install from the plugin directory
-claude plugin add yaniv-golan/smalltv-ultra-skill
+# Add the marketplace and install
+claude plugin marketplace add yaniv-golan/smalltv-ultra-skill
+claude plugin install geekmagic-smalltv-ultra
 
-# Or install from a local copy
+# Or load from a local copy (no install needed)
 claude --plugin-dir /path/to/smalltv-ultra-skill
 ```
 
@@ -76,6 +77,10 @@ If the device loses WiFi connectivity:
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting issues, submitting PRs, and testing locally.
+
+## Disclaimer
+
+This project is unofficial and not affiliated with, endorsed by, or sponsored by GeekMagic. "GeekMagic" and "SmallTV" are trademarks of their respective owners.
 
 ## License
 
