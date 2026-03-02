@@ -1,0 +1,27 @@
+# Plugin user settings (device IP, preferences)
+.claude/*.local.md
+
+# macOS
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node.js (if users experiment in the repo)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Python (if users experiment in the repo)
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/

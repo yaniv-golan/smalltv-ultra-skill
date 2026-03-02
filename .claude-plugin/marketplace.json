@@ -1,0 +1,14 @@
+{
+  "name": "tinytv-plugins",
+  "owner": {
+    "name": "Yaniv Golan"
+  },
+  "plugins": [
+    {
+      "name": "geekmagic-smalltv-ultra",
+      "source": ".",
+      "description": "Control, customize, and develop firmware for the GeekMagic SmallTV Ultra (ESP8266 + ST7789 240x240 display)",
+      "version": "1.0.0"
+    }
+  ]
+}
