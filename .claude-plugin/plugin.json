@@ -2,11 +2,22 @@
   "name": "geekmagic-smalltv-ultra",
   "version": "1.0.0",
   "description": "Control, customize, and develop firmware for the GeekMagic SmallTV Ultra (ESP8266 + ST7789 240x240 display)",
-  "author": "Yaniv Golan",
+  "author": {
+    "name": "Yaniv Golan",
+    "email": "yaniv@golan.name"
+  },
   "license": "MIT",
   "homepage": "https://github.com/yaniv-golan/smalltv-ultra-skill",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yaniv-golan/smalltv-ultra-skill.git"
-  }
+  "repository": "https://github.com/yaniv-golan/smalltv-ultra-skill",
+  "keywords": [
+    "geekmagic",
+    "smalltv",
+    "esp8266",
+    "iot",
+    "display",
+    "firmware"
+  ],
+  "skills": [
+    "./skills"
+  ]
 }

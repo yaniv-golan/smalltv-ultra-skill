@@ -1,13 +1,21 @@
 {
-  "name": "tinytv-plugins",
+  "name": "smalltv-ultra-skill",
   "owner": {
     "name": "Yaniv Golan"
+  },
+  "metadata": {
+    "description": "Claude skill for the GeekMagic SmallTV Ultra — control, customize, and develop firmware"
   },
   "plugins": [
     {
       "name": "geekmagic-smalltv-ultra",
-      "source": ".",
       "description": "Control, customize, and develop firmware for the GeekMagic SmallTV Ultra (ESP8266 + ST7789 240x240 display)",
+      "author": {
+        "name": "Yaniv Golan",
+        "email": "yaniv@golan.name"
+      },
+      "source": "./.claude-plugin",
+      "category": "development",
       "version": "1.0.0"
     }
   ]
