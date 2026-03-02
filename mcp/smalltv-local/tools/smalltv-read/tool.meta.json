@@ -1,0 +1,42 @@
+{
+  "name": "smalltv-read",
+  "description": "Read status, config, and file listings from the SmallTV device. GET only. Use for /v.json, /space.json, /city.json, /album.json, /filelist?dir=..., /wifi.json?q=1, /config.json, and static pages. Write endpoints (/set, /wifisave, /delete) are blocked — use smalltv-write for those.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "device_ip": {
+        "type": "string",
+        "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+      },
+      "path": {
+        "type": "string",
+        "description": "Endpoint path such as /space.json or /filelist?dir=/image/"
+      }
+    },
+    "required": ["path"]
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["success", "result"],
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "result": {
+        "type": "object",
+        "required": ["device_ip", "request", "status_code", "body"],
+        "properties": {
+          "device_ip": { "type": "string" },
+          "request": { "type": "object" },
+          "status_code": { "type": "integer" },
+          "body": { "type": "string" }
+        }
+      }
+    }
+  },
+  "timeoutSecs": 8,
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+  }
+}

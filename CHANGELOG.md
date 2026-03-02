@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.0] - 2026-03-02
+
+### Changed
+- **Breaking**: Replaced `smalltv-http-request` with two granular tools:
+  - `smalltv-read` — GET-only, read-only, blocks write endpoints (`readOnlyHint: true`)
+  - `smalltv-write` — all HTTP methods, all endpoints (`openWorldHint: true`)
+- Server instructions updated with tool-per-task endpoint table
+
+### Removed
+- `smalltv-http-request` tool (replaced by `smalltv-read` and `smalltv-write`)
+
 ## [0.3.1] - 2026-03-02
 
 ### Added

@@ -1,6 +1,6 @@
 {
-  "name": "smalltv-http-request",
-  "description": "Send an HTTP request to any SmallTV endpoint. Use after verifying the device with smalltv-get-device-info. Supports GET/POST for settings, file uploads, and status queries. WARNING: some endpoints are destructive (reset, reboot, clear, wifisave) — never call them without explicit user intent.",
+  "name": "smalltv-write",
+  "description": "Change settings, display content, or run system commands on the SmallTV device. Supports all HTTP methods. Common patterns: /set?theme={n}, /set?brt={val}, /set?cd1={city}&cd2=1000. WARNING: some endpoints are destructive (reset, reboot, clear, wifisave, delete) — never call them without explicit user intent.",
   "inputSchema": {
     "type": "object",
     "properties": {
@@ -36,16 +36,11 @@
         "default": "application/json"
       }
     },
-    "required": [
-      "path"
-    ]
+    "required": ["path"]
   },
   "outputSchema": {
     "type": "object",
-    "required": [
-      "success",
-      "result"
-    ],
+    "required": ["success", "result"],
     "properties": {
       "success": {
         "type": "boolean"
@@ -59,24 +54,17 @@
           "body"
         ],
         "properties": {
-          "device_ip": {
-            "type": "string"
-          },
-          "request": {
-            "type": "object"
-          },
-          "status_code": {
-            "type": "integer"
-          },
-          "body": {
-            "type": "string"
-          }
+          "device_ip": { "type": "string" },
+          "request": { "type": "object" },
+          "status_code": { "type": "integer" },
+          "body": { "type": "string" }
         }
       }
     }
   },
   "timeoutSecs": 12,
   "annotations": {
+    "readOnlyHint": false,
     "openWorldHint": true
   }
 }

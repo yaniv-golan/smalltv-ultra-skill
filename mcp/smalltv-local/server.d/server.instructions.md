@@ -9,13 +9,17 @@ request executes immediately.
 1. **Always call `smalltv-get-device-info` first** to verify the device
    is reachable and confirm it is a SmallTV-Ultra (not a Pro or other
    model). Do this once per session before any other tool call.
-2. Use `smalltv-http-request` for settings, status queries, and display
-   control (GET/POST with text bodies).
-3. Use `smalltv-upload-file` to upload JPG or GIF images from the local
+2. Use `smalltv-read` for status queries and config checks — GET-only,
+   read-only. Works with `/*.json`, `/filelist?dir=...`, static pages.
+   Write endpoints (`/set`, `/wifisave`, `/delete`) are blocked.
+3. Use `smalltv-write` to change settings, control display, or run
+   system commands. Supports all HTTP methods. Common pattern:
+   `GET /set?param=value`.
+4. Use `smalltv-upload-file` to upload JPG or GIF images from the local
    filesystem. It handles multipart form data internally. Do **not**
-   attempt file uploads through `smalltv-http-request` — its string
-   body cannot carry binary data.
-4. Use `smalltv-upload-firmware` only when the user explicitly asks to
+   attempt file uploads through `smalltv-write` — its string body
+   cannot carry binary data.
+5. Use `smalltv-upload-firmware` only when the user explicitly asks to
    flash firmware. Requires `confirm=true` — always ask the user first.
    Bad firmware can brick the device.
 
@@ -37,16 +41,16 @@ request executes immediately.
 
 Settings use `GET /set?param=value` and return `"OK"` on success.
 
-| Task                | Path                              |
-|---------------------|-----------------------------------|
-| Set theme (1-7)     | `/set?theme={n}`                  |
-| Set brightness      | `/set?brt={-10..100}`             |
-| Set city            | `/set?cd1={name}&cd2=1000`        |
-| Check storage       | `/space.json`                     |
-| List album files    | `/filelist?dir=/image/`           |
-| Upload image        | `smalltv-upload-file` tool        |
-| Display image       | `/set?img=/image/{file}`          |
-| Switch to album     | `/set?theme=3`                    |
+| Task                | Tool               | Path                         |
+|---------------------|--------------------|------------------------------ |
+| Check storage       | `smalltv-read`     | `/space.json`                |
+| List album files    | `smalltv-read`     | `/filelist?dir=/image/`      |
+| Set theme (1-7)     | `smalltv-write`    | `/set?theme={n}`             |
+| Set brightness      | `smalltv-write`    | `/set?brt={-10..100}`        |
+| Set city            | `smalltv-write`    | `/set?cd1={name}&cd2=1000`   |
+| Display image       | `smalltv-write`    | `/set?img=/image/{file}`     |
+| Upload image        | `smalltv-upload-file`  | (local file path)        |
+| Flash firmware      | `smalltv-upload-firmware` | (local .bin path)     |
 
 ## Reference Resources
 

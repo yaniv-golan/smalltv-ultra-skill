@@ -45,15 +45,24 @@ mcp-bash bundle
   - Reads `GET /v.json`
   - Optional arg: `device_ip` (falls back to `SMALLTV_DEVICE_IP`)
 
-- `smalltv-http-request`
-  - Call any SmallTV endpoint (`/set`, `/space.json`, `/doUpload`, etc.)
-  - Use after verifying device with `smalltv-get-device-info`
-  - Args:
-    - `path` (required, must start with `/`)
-    - `method` (default `GET`)
-    - `body` (optional raw body)
-    - `content_type` (default `application/json`)
-    - `device_ip` (optional, fallback to env var)
+- `smalltv-read`
+  - Read-only GET requests for status, config, and file listings
+  - Safe endpoints: `/*.json`, `/filelist?dir=...`, static pages
+  - Blocks write endpoints (`/set`, `/wifisave`, `/delete`)
+  - Args: `path` (required), `device_ip` (optional)
+
+- `smalltv-write`
+  - Change settings, control display, run system commands
+  - All HTTP methods supported
+  - Args: `path` (required), `method` (default `GET`), `body`, `content_type`, `device_ip`
+
+- `smalltv-upload-file`
+  - Upload JPG/GIF images via multipart form data
+  - Args: `file_path` (required), `dir` (`/image/` or `/gif`), `device_ip`
+
+- `smalltv-upload-firmware`
+  - Flash .bin/.bin.gz firmware — requires `confirm=true`
+  - Args: `file_path` (required), `confirm` (required, must be true), `device_ip`
 
 ## Server Instructions
 

@@ -9,37 +9,31 @@ if [ -z "${device_ip}" ]; then
   device_ip="${SMALLTV_DEVICE_IP:-}"
 fi
 if [ -z "${device_ip}" ]; then
-  mcp_fail_invalid_args "device_ip is required (arg or SMALLTV_DEVICE_IP env var)"
+  mcp_fail_invalid_args \
+    "device_ip is required (arg or SMALLTV_DEVICE_IP env var)"
 fi
 
-method="$(mcp_args_get '.method // "GET"' 2>/dev/null || true)"
 path="$(mcp_args_require '.path')"
-body="$(mcp_args_get '.body // ""' 2>/dev/null || true)"
-content_type="$(mcp_args_get '.content_type // "application/json"' 2>/dev/null || true)"
 
 if [ -z "${path}" ] || [ "${path#"/"}" = "${path}" ]; then
   mcp_fail_invalid_args "path must start with '/'"
 fi
 
+case "${path}" in
+  /set|/set\?*|/wifisave*|/delete*|/update*|/doUpload*)
+    mcp_fail_invalid_args \
+      "This is a write endpoint. Use smalltv-write instead."
+    ;;
+esac
+
 url="http://${device_ip}${path}"
 
-if [ -n "${body}" ]; then
-  response_body="$(curl -sS \
-    -X "${method}" \
-    -H "Content-Type: ${content_type}" \
-    --data-raw "${body}" \
-    --max-time 8 \
-    --write-out '%{http_code}' \
-    --output - \
-    "${url}" 2>/dev/null || true)"
-else
-  response_body="$(curl -sS \
-    -X "${method}" \
-    --max-time 8 \
-    --write-out '%{http_code}' \
-    --output - \
-    "${url}" 2>/dev/null || true)"
-fi
+response_body="$(curl -sS \
+  -X GET \
+  --max-time 8 \
+  --write-out '%{http_code}' \
+  --output - \
+  "${url}" 2>/dev/null || true)"
 
 if [ -z "${response_body}" ]; then
   mcp_result_error "$(mcp_json_obj \
@@ -48,7 +42,6 @@ if [ -z "${response_body}" ]; then
   exit 0
 fi
 
-# curl output contains body + trailing 3-digit status from --write-out
 status_code="${response_body: -3}"
 body_text="${response_body::-3}"
 
@@ -61,18 +54,12 @@ fi
 
 result="$("${MCPBASH_JSON_TOOL_BIN:?}" -cn \
   --arg device_ip "${device_ip}" \
-  --arg method "${method}" \
   --arg path "${path}" \
-  --arg content_type "${content_type}" \
   --arg body "${body_text}" \
   --argjson status_code "${status_code}" \
   '{
     device_ip: $device_ip,
-    request: {
-      method: $method,
-      path: $path,
-      content_type: $content_type
-    },
+    request: { method: "GET", path: $path },
     status_code: $status_code,
     body: $body
   }')"
