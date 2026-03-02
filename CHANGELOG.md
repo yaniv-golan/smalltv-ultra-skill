@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.2] - 2026-03-02
+
+### Changed
+- Server instructions rewritten to be self-contained — the model no longer depends on reading MCP resources (which are user-selectable, not model-initiated) for critical API knowledge
+- Added complete `/set?` parameter reference, JSON read endpoints, file management, and theme table directly in server instructions
+- Added explicit "NOT SUPPORTED" section: no text display endpoint exists, custom text requires image rendering workflow
+- Added "Do not probe unknown parameters" guidance to prevent speculative endpoint guessing
+- Resources section reframed as "user-selectable" supplementary context
+
 ## [0.4.1] - 2026-03-02
 
 ### Fixed

@@ -1,7 +1,7 @@
 {
   "name": "smalltv-local-mcp",
   "title": "SmallTV Local MCP",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Local MCP server for GeekMagic SmallTV Ultra device control",
   "author": {
     "name": "Yaniv Golan",

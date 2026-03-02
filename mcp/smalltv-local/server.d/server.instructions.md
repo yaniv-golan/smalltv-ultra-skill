@@ -23,40 +23,103 @@ request executes immediately.
    flash firmware. Requires `confirm=true` — always ask the user first.
    Bad firmware can brick the device.
 
+## NOT SUPPORTED by the stock firmware
+
+- **No text display endpoint.** There is no `/set?txt=`, `/set?text=`,
+  `/set?notify=`, `/set?message=`, or `/set?scrolltext=`. Do not guess
+  or probe for text endpoints — they do not exist.
+- **To display custom text**: render it as a 240x240 JPEG image (e.g.
+  using Python+Pillow or ImageMagick), upload with `smalltv-upload-file`
+  to `/image/`, then display with `smalltv-write /set?img=/image/{file}`
+  and `smalltv-write /set?theme=3`.
+- No video playback, no audio, no touchscreen input.
+- No WebSocket or MQTT push — poll JSON endpoints for status.
+- No HTTPS/TLS — all traffic is unencrypted HTTP.
+- 2.4GHz WiFi only (ESP8266).
+
 ## Safety Defaults
 
-- Prefer read-only endpoints (`/v.json`, `/space.json`, `/city.json`,
-  `/album.json`) before any write operation.
+- Prefer read-only endpoints before any write operation.
 - **Never call destructive endpoints without explicit user intent:**
   - `/wifisave` (empty call wipes WiFi credentials)
   - `/set?reset=1` (factory reset)
   - `/set?reboot=1` (immediate reboot)
   - `/set?clear=image` or `/set?clear=gif` (deletes all uploads)
   - `/delete?file=...` (permanent file deletion)
-- Do not probe write endpoints with speculative requests.
+- Do not probe unknown `/set?` parameters — unsupported params may
+  return `"FAIL"` or status code 0. Only use the parameters listed below.
 - **Never flash firmware** without explicit user approval and
   `confirm=true`.
 
-## Common Endpoint Patterns
+## Complete `/set?` Parameter Reference
 
-Settings use `GET /set?param=value` and return `"OK"` on success.
+These are ALL valid `/set?` parameters. Any parameter not listed here
+does not exist in the stock firmware.
 
-| Task                | Tool               | Path                         |
-|---------------------|--------------------|------------------------------ |
-| Check storage       | `smalltv-read`     | `/space.json`                |
-| List album files    | `smalltv-read`     | `/filelist?dir=/image/`      |
-| Set theme (1-7)     | `smalltv-write`    | `/set?theme={n}`             |
-| Set brightness      | `smalltv-write`    | `/set?brt={-10..100}`        |
-| Set city            | `smalltv-write`    | `/set?cd1={name}&cd2=1000`   |
-| Display image       | `smalltv-write`    | `/set?img=/image/{file}`     |
-| Upload image        | `smalltv-upload-file`  | (local file path)        |
-| Flash firmware      | `smalltv-upload-firmware` | (local .bin path)     |
+| Parameter | Example | Effect |
+|-----------|---------|--------|
+| `theme` | `/set?theme=3` | Set display theme (1-7) |
+| `theme_list` | `/set?theme_list=1,0,1,0,0,0,1&sw_en=1&theme_interval=30` | Auto theme switching |
+| `brt` | `/set?brt=50` | Brightness (-10 to 100) |
+| `t1,t2,b1,b2,en` | `/set?t1=22&t2=7&b1=50&b2=10&en=1` | Night mode |
+| `cd1,cd2` | `/set?cd1=Seoul&cd2=1000` | Set city |
+| `w_u,t_u,p_u` | `/set?w_u=km/h&t_u=°C&p_u=hPa` | Weather units |
+| `w_i` | `/set?w_i=20` | Weather update interval (minutes) |
+| `key` | `/set?key={api_key}` | OpenWeatherMap API key |
+| `fkey` | `/set?fkey={key}` | Forecast API key |
+| `hour` | `/set?hour=0` | 0=24h, 1=12h |
+| `day` | `/set?day=1` | Date format (1-5) |
+| `colon` | `/set?colon=1` | Colon blink |
+| `font` | `/set?font=1` | 1=Big, 2=Digital |
+| `ntp` | `/set?ntp=pool.ntp.org` | NTP server |
+| `dst` | `/set?dst=1` | Daylight saving |
+| `hc,mc,sc` | `/set?hc=%23FF0000&mc=%23FFFFFF&sc=%2300FF00` | Clock colors (URL-encoded hex) |
+| `yr,mth,day` | `/set?yr=2026&mth=12&day=25` | Countdown timer |
+| `autoplay` | `/set?autoplay=1` | Album auto-display |
+| `i_i` | `/set?i_i=5` | Image interval (seconds) |
+| `img` | `/set?img=/image/hello.jpg` | Display specific image |
+| `gif` | `/set?gif=/gif/custom.gif` | Weather screen GIF (80x80) |
+| `delay` | `/set?delay=5` | WiFi connection delay |
+| `reset` | `/set?reset=1` | **DESTRUCTIVE**: factory reset |
+| `reboot` | `/set?reboot=1` | **DESTRUCTIVE**: reboot |
+| `clear` | `/set?clear=image` | **DESTRUCTIVE**: delete all images or GIFs |
 
-## Reference Resources
+## JSON Read Endpoints
 
-This server exposes MCP resources with additional documentation:
-- `file://./resources/api-reference.md` — full HTTP API and endpoint catalog
-- `file://./resources/safety-guide.md` — destructive endpoints and constraints
+| Endpoint | Returns |
+|----------|---------|
+| `/v.json` | Model and firmware version |
+| `/city.json` | City configuration |
+| `/space.json` | Storage total and free bytes |
+| `/album.json` | Album autoplay settings |
+| `/config.json` | WiFi SSID and password |
+| `/wifi.json?q=1` | WiFi scan results |
 
-Consult these resources when you need endpoint details beyond the
-common patterns listed above.
+## File Management
+
+| Operation | Tool | Path |
+|-----------|------|------|
+| List album files | `smalltv-read` | `/filelist?dir=/image/` |
+| List GIF files | `smalltv-read` | `/filelist?dir=/gif` |
+| Upload image | `smalltv-upload-file` | (local file path) |
+| Delete file | `smalltv-write` | `/delete?file={url-encoded-path}` |
+| View/download file | `smalltv-read` | `/{filepath}` |
+
+## Display Themes
+
+| # | Theme |
+|---|-------|
+| 1 | Weather Clock Today |
+| 2 | Weather Forecast |
+| 3 | Photo Album (use this to display uploaded images) |
+| 4 | Time Style 1 (customizable colors) |
+| 5 | Time Style 2 |
+| 6 | Time Style 3 |
+| 7 | Simple Weather Clock |
+
+## Reference Resources (user-selectable)
+
+This server also exposes MCP resources with expanded documentation.
+Users can attach these to their context for additional detail:
+- `file://./resources/api-reference.md` — full HTTP API catalog
+- `file://./resources/safety-guide.md` — safety rules and device constraints
