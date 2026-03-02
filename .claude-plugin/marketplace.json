@@ -14,9 +14,9 @@
         "name": "Yaniv Golan",
         "email": "yaniv@golan.name"
       },
-      "source": "./.claude-plugin",
+      "source": ".",
       "category": "development",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }

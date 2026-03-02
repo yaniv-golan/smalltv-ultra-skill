@@ -1,6 +1,6 @@
 {
   "name": "geekmagic-smalltv-ultra",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Control, customize, and develop firmware for the GeekMagic SmallTV Ultra (ESP8266 + ST7789 240x240 display)",
   "author": {
     "name": "Yaniv Golan",

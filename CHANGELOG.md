@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [skill-0.1.1] - 2026-03-02
+
+### Fixed
+- Marketplace `source` path pointed to `./.claude-plugin` instead of `.` — Claude could not resolve `plugin.json`, so no skills were visible after installation
+
 ## [0.4.5] - 2026-03-02
 
 ### Changed
