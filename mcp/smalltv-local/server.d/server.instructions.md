@@ -9,8 +9,12 @@ request executes immediately.
 1. **Always call `smalltv-get-device-info` first** to verify the device
    is reachable and confirm it is a SmallTV-Ultra (not a Pro or other
    model). Do this once per session before any other tool call.
-2. Use `smalltv-http-request` for all subsequent interactions — reading
-   status, changing settings, uploading files, etc.
+2. Use `smalltv-http-request` for settings, status queries, and display
+   control (GET/POST with text bodies).
+3. Use `smalltv-upload-file` to upload JPG or GIF images from the local
+   filesystem. It handles multipart form data internally. Do **not**
+   attempt file uploads through `smalltv-http-request` — its string
+   body cannot carry binary data.
 
 ## Safety Defaults
 
@@ -35,7 +39,7 @@ Settings use `GET /set?param=value` and return `"OK"` on success.
 | Set city            | `/set?cd1={name}&cd2=1000`        |
 | Check storage       | `/space.json`                     |
 | List album files    | `/filelist?dir=/image/`           |
-| Upload image        | `POST /doUpload?dir=/image/`      |
+| Upload image        | `smalltv-upload-file` tool        |
 | Display image       | `/set?img=/image/{file}`          |
 | Switch to album     | `/set?theme=3`                    |
 

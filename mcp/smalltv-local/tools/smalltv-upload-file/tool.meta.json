@@ -1,0 +1,54 @@
+{
+  "name": "smalltv-upload-file",
+  "description": "Upload a JPG or GIF image from the local filesystem to the SmallTV device. Use dir '/image/' for album photos (max 240x240px) or '/gif' for weather screen GIFs (80x80px). Firmware uploads are not supported.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "device_ip": {
+        "type": "string",
+        "description": "Optional device IP. Falls back to SMALLTV_DEVICE_IP."
+      },
+      "file_path": {
+        "type": "string",
+        "description": "Absolute path to a local .jpg, .jpeg, or .gif file"
+      },
+      "dir": {
+        "type": "string",
+        "description": "Target directory on the device",
+        "enum": ["/image/", "/gif"]
+      }
+    },
+    "required": ["file_path", "dir"]
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["success", "result"],
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "result": {
+        "type": "object",
+        "required": [
+          "device_ip",
+          "uploaded_file",
+          "target_dir",
+          "status_code",
+          "body"
+        ],
+        "properties": {
+          "device_ip": { "type": "string" },
+          "uploaded_file": { "type": "string" },
+          "target_dir": { "type": "string" },
+          "status_code": { "type": "integer" },
+          "body": { "type": "string" }
+        }
+      }
+    }
+  },
+  "timeoutSecs": 30,
+  "annotations": {
+    "readOnlyHint": false,
+    "idempotentHint": true
+  }
+}

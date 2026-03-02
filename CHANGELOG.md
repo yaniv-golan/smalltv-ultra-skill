@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.3.0] - 2026-03-02
+
+### Added
+- New `smalltv-upload-file` tool for uploading JPG/GIF images via multipart form data (fixes inability to upload binary files through the string-based `smalltv-http-request` body)
+- File validation: extension check (.jpg/.jpeg/.gif only), firmware rejection, dir whitelist (/image/, /gif)
+
+### Changed
+- Server instructions updated to direct uploads to `smalltv-upload-file` and warn against using `smalltv-http-request` for binary data
+
 ## [0.2.0] - 2026-03-02
 
 ### Added
