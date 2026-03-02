@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.2.0] - 2026-03-02
+
+### Added
+- Resource annotations (`priority: 1.0`, `audience: ["assistant"]`) on API reference and safety guide resources to signal clients to auto-include them in context
+- Tool annotations: `readOnlyHint`/`destructiveHint` on `smalltv-get-device-info`, `openWorldHint` on `smalltv-http-request`
+
+### Changed
+- Upgraded mcp-bash framework from 1.1.2 to 1.1.3 (adds resource annotation support)
+
 ## [0.1.0] - 2026-03-02
 
 ### Added

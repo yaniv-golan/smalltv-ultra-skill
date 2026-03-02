@@ -41,5 +41,9 @@
       }
     }
   },
-  "timeoutSecs": 8
+  "timeoutSecs": 8,
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+  }
 }

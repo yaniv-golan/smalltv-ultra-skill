@@ -3,5 +3,9 @@
   "description": "SmallTV Ultra safety rules, destructive endpoint warnings, device constraints, and WiFi recovery procedures",
   "uri": "file://./resources/safety-guide.md",
   "mimeType": "text/markdown",
-  "provider": "file"
+  "provider": "file",
+  "annotations": {
+    "priority": 1.0,
+    "audience": ["assistant"]
+  }
 }

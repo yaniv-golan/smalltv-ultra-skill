@@ -4,7 +4,7 @@ set -euo pipefail
 INSTALL_MCP_BASH="false"
 CLIENT_NAME="cursor"
 DEVICE_IP="${SMALLTV_DEVICE_IP:-}"
-MCP_BASH_VERSION="v1.1.2"
+MCP_BASH_VERSION="v1.1.3"
 
 usage() {
   cat <<'EOF'
@@ -74,7 +74,7 @@ if ! command -v mcp-bash >/dev/null 2>&1; then
 mcp-bash is not installed.
 
 Install it manually:
-  curl -fsSL "https://raw.githubusercontent.com/yaniv-golan/mcp-bash-framework/v1.1.2/install.sh" | bash -s -- --yes --version "v1.1.2"
+  curl -fsSL "https://raw.githubusercontent.com/yaniv-golan/mcp-bash-framework/v1.1.3/install.sh" | bash -s -- --yes --version "v1.1.3"
 
 Or run this script with:
   ./setup.sh --install-mcp-bash

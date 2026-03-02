@@ -58,7 +58,7 @@ mcp-bash bundle
 ## Server Instructions
 
 The file `server.d/server.instructions.md` is sent to MCP clients
-automatically during the `initialize` handshake (requires mcp-bash >= 1.1.2).
+automatically during the `initialize` handshake (requires mcp-bash >= 1.1.3).
 It contains tool-selection guidance, safety defaults, common endpoint
 patterns, and pointers to the MCP resources below.
 

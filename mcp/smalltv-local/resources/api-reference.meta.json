@@ -3,5 +3,9 @@
   "description": "Full SmallTV Ultra HTTP API reference — endpoints, parameters, JSON data formats, file management, theme control, and web console pages",
   "uri": "file://./resources/api-reference.md",
   "mimeType": "text/markdown",
-  "provider": "file"
+  "provider": "file",
+  "annotations": {
+    "priority": 1.0,
+    "audience": ["assistant"]
+  }
 }

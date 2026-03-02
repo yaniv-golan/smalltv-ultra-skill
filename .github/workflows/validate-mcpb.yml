@@ -26,8 +26,8 @@ jobs:
 
       - name: Install mcp-bash
         run: |
-          curl -fsSL "https://raw.githubusercontent.com/yaniv-golan/mcp-bash-framework/v1.1.2/install.sh" \
-            | bash -s -- --yes --version "v1.1.2"
+          curl -fsSL "https://raw.githubusercontent.com/yaniv-golan/mcp-bash-framework/v1.1.3/install.sh" \
+            | bash -s -- --yes --version "v1.1.3"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Verify generated MCP docs are fresh

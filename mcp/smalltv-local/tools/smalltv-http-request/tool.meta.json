@@ -75,5 +75,8 @@
       }
     }
   },
-  "timeoutSecs": 12
+  "timeoutSecs": 12,
+  "annotations": {
+    "openWorldHint": true
+  }
 }
