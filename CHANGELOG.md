@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.5] - 2026-03-02
+
+### Changed
+- Unified env var to `SMALLTV_IP` everywhere — user_config key, env_map, tool scripts, and docs all use the same name. Reverted unnecessary `setup.sh` changes from 0.4.4.
+
 ## [0.4.3] - 2026-03-02
 
 ### Fixed

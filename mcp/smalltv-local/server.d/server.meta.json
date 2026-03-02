@@ -1,7 +1,7 @@
 {
   "name": "smalltv-local-mcp",
   "title": "SmallTV Local MCP",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "description": "Local MCP server for GeekMagic SmallTV Ultra device control",
   "author": {
     "name": "Yaniv Golan",
@@ -10,7 +10,7 @@
   },
   "repository": "https://github.com/yaniv-golan/smalltv-ultra-skill",
   "user_config": {
-    "device_ip": {
+    "SMALLTV_IP": {
       "type": "string",
       "title": "SmallTV Device IP",
       "description": "Local IP for your GeekMagic SmallTV Ultra (for example 192.168.5.253)",
@@ -18,6 +18,6 @@
     }
   },
   "user_config_env_map": {
-    "device_ip": "SMALLTV_DEVICE_IP"
+    "SMALLTV_IP": "SMALLTV_IP"
   }
 }

@@ -15,7 +15,7 @@ This bundle embeds the `mcp-bash` runtime, so end users do not need to install `
 Some clients may not surface MCPB user-config UI yet. In that case, set:
 
 ```bash
-export SMALLTV_DEVICE_IP=192.168.5.253
+export SMALLTV_IP=192.168.5.253
 ```
 
 ## Developer Setup (Optional, Non-MCPB)
@@ -43,7 +43,7 @@ mcp-bash bundle
 - `smalltv-get-device-info`
   - Verify device connectivity and identity (call this first)
   - Reads `GET /v.json`
-  - Optional arg: `device_ip` (falls back to `SMALLTV_DEVICE_IP`)
+  - Optional arg: `device_ip` (falls back to `SMALLTV_IP` env var)
 
 - `smalltv-read`
   - Read-only GET requests for status, config, and file listings

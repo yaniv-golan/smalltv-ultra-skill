@@ -6,11 +6,11 @@ source "${MCP_SDK:?MCP_SDK environment variable not set}/tool-sdk.sh"
 
 device_ip="$(mcp_args_get '.device_ip // ""' 2>/dev/null || true)"
 if [ -z "${device_ip}" ]; then
-  device_ip="${SMALLTV_DEVICE_IP:-}"
+  device_ip="${SMALLTV_IP:-}"
 fi
 if [ -z "${device_ip}" ]; then
   mcp_fail_invalid_args \
-    "device_ip is required (arg or SMALLTV_DEVICE_IP env var)"
+    "device_ip is required (pass as argument or set SMALLTV_IP env var)"
 fi
 
 method="$(mcp_args_get '.method // "GET"' 2>/dev/null || true)"

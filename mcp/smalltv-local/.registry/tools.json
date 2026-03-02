@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "version": 1,
-  "generatedAt": "2026-03-02T16:23:50Z",
+  "generatedAt": "2026-03-02T16:36:23Z",
   "items": [
     {
       "name": "smalltv-get-device-info",
@@ -410,6 +410,6 @@
       }
     }
   ],
-  "hash": "b24369ee3e4ad7a81b7a3ce947396a9b5a30320fb62a8ff792f0e62c6bcc1c35",
+  "hash": "6c946dc400fa3c3927808227cea186d3d5a4e3a0f81d01850269cae71f513427",
   "total": 5
 }
